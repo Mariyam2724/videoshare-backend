@@ -43,7 +43,7 @@ router.get("/getbyuser/:userid" , (req,res) => {
 
    router.get("/getbyid/:id" , (req,res) => {
 
-    Model.findById( req.params.id)
+    Model.findById( req.params.id).populate('user')
    .then( (data) => {
        console.log('Video data fetched');
        res.json(data);
@@ -54,6 +54,37 @@ router.get("/getbyuser/:userid" , (req,res) => {
    })
     
    })
+
+
+   router.delete("/delete/:id" , (req,res) => {
+
+    Model.findByIdAndDelete( req.params.id)
+   .then( (data) => {
+       console.log('Video data fetched');
+       res.json(data);
+   })
+   .catch( (err) => {
+       console.error(err);
+       res.json(err);
+   })
+    
+   })
+
+
+   router.get("/getshared/:id" , (req,res) => {
+
+    Model.find( {shared: {$elemMatch: [req.params.id]}})
+   .then( (data) => {
+       console.log('Video data fetched');
+       res.json(data);
+   })
+   .catch( (err) => {
+       console.error(err);
+       res.json(err);
+   })
+    
+   })
+
 
    router.put("/pushupdate/:id" , (req,res) => {
 
