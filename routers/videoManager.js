@@ -1,103 +1,111 @@
 const express = require('express');
 // const { Model } = require('mongoose');
 const router = express.Router();
-const Model= require('../models/videoModel');
+const Model = require('../models/videoModel');
 
 
 
 
 
-router.post("/add" , (req,res) => {
-console.log(req.body);
+router.post("/add", (req, res) => {
+    console.log(req.body);
 
-new Model(req.body).save()
-.then( () => {
-    console.log('video data saved');
-    res.json({ message : 'success'});
-})
-.catch( (err) => {
-    console.error(err);
-    res.json(err);
-})
- 
-
-
+    new Model(req.body).save()
+        .then(() => {
+            console.log('video data saved');
+            res.json({ message: 'success' });
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
 })
 
 
-router.get("/getbyuser/:userid" , (req,res) => {
+router.get("/getbyuser/:userid", (req, res) => {
 
-    Model.find({ user: req.params.userid}).populate('shared')
-   .then( (data) => {
-       console.log('user data saved');
-       res.json(data);
-   })
-   .catch( (err) => {
-       console.error(err);
-       res.json(err);
-   })
-    
-   
-   
-   })
+    Model.find({ user: req.params.userid }).populate('shared')
+        .then((data) => {
+            console.log('user data saved');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
+})
 
-   router.get("/getbyid/:id" , (req,res) => {
+router.get("/getbyid/:id", (req, res) => {
 
-    Model.findById( req.params.id).populate('user')
-   .then( (data) => {
-       console.log('Video data fetched');
-       res.json(data);
-   })
-   .catch( (err) => {
-       console.error(err);
-       res.json(err);
-   })
-    
-   })
+    Model.findById(req.params.id).populate('user')
+        .then((data) => {
+            console.log('Video data fetched');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
+
+})
 
 
-   router.delete("/delete/:id" , (req,res) => {
+router.delete("/delete/:id", (req, res) => {
 
-    Model.findByIdAndDelete( req.params.id)
-   .then( (data) => {
-       console.log('Video data fetched');
-       res.json(data);
-   })
-   .catch( (err) => {
-       console.error(err);
-       res.json(err);
-   })
-    
-   })
+    Model.findByIdAndDelete(req.params.id)
+        .then((data) => {
+            console.log('Video data fetched');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
 
-
-   router.get("/getshared/:id" , (req,res) => {
-
-    Model.find( {shared: {$elemMatch: [req.params.id]}})
-   .then( (data) => {
-       console.log('Video data fetched');
-       res.json(data);
-   })
-   .catch( (err) => {
-       console.error(err);
-       res.json(err);
-   })
-    
-   })
+})
 
 
-   router.put("/pushupdate/:id" , (req,res) => {
+router.get("/getshared/:id", (req, res) => {
 
-    Model.findByIdAndUpdate( req.params.id,{$push:req.body})
-   .then( (data) => {
-       console.log('Video data fetched');
-       res.json(data);
-   })
-   .catch( (err) => {
-       console.error(err);
-       res.json(err);
-   })
-    
-   })
+    Model.find({ shared: [req.params.id] })
+        .then((data) => {
+            console.log('Video data fetched');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
 
-module.exports=router;
+})
+
+
+router.put("/pushupdate/:id", (req, res) => {
+
+    Model.findByIdAndUpdate(req.params.id, { $push: req.body })
+        .then((data) => {
+            console.log('Video data fetched');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
+})
+
+router.put("/update/:id", (req, res) => {
+
+    Model.findByIdAndUpdate(req.params.id, req.body)
+        .then((data) => {
+            console.log('Video data fetched');
+            res.json(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.json(err);
+        })
+})
+
+
+
+module.exports = router;
