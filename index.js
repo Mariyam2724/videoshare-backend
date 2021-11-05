@@ -19,4 +19,3 @@ app.get('/home', (req, res) => {
     res.send('Welcome Home Sweet Home');
 })
 app.listen(port, () => { console.log('server started ' + port) });
-
