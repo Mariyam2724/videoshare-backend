@@ -7,7 +7,14 @@ const videoRouter = require("./routers/videoManager");
 const utilRouter = require("./routers/utils");
 
 const cors = require("cors");
-app.use(cors({ origin: ["http://localhost:4200"] }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:4200",
+      "https://video-hosting-platform.herokuapp.com",
+    ],
+  })
+);
 app.use(express.json());
 app.use("/user", userRouter);
 app.use("/video", videoRouter);
