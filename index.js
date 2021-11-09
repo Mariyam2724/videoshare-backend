@@ -23,7 +23,7 @@ app.use(express.static("./uploads"));
 
 app.get("/home", (req, res) => {
   console.log("recieve request");
-  res.send("Welcome Home Sweet Home");
+  res.send("updated");
 });
 app.listen(port, () => {
   console.log("server started " + port);
