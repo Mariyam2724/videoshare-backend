@@ -12,7 +12,7 @@ app.use(
     origin: [
       "http://localhost:4200",
       "https://video-hosting-platform.herokuapp.com",
-      "https://videoshare27.herokuapp.com/login"
+      "https://videoshare27.herokuapp.com"
     ],
   })
 );
